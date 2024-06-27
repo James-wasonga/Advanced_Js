@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="" id="image"/>
+    <script>
+        //fetching the data using async/await
+        async function fetchimg(){
+            const response = await fetch('rainbow.img');
+            const blob = response.blob();
+            document.getElementById('image').src = URL.createObjectURL(blob);
+        }
+
+        fetchimg()
+        .then(response => {
+            console.log('The Data as been Fetched');
+        })
+        .catch((error) => {
+            console.error(error);
+        });    
+
+        //fetching the data using promises
+        fetch('shoes.jpg')
+        .then(response => {
+            console.log(response);
+            return response.blob();
+        })
+        .then(response => {
+            console.log(response);
+            document.getElementById('image').src = URL.createObjectURL(response);//blob
+
+        })
+        .catch((error) => {
+            console.log('There is an error in the dispaly');
+            console.error(error);
+        })
+    </script>
+    
+</body>
+</html>
