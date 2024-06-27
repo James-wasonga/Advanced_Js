@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <title>Displaying the items on the Map</title>
+    <style>
+        #issMap{
+            height: 480px;
+        }
+    </style>
+</head>
+<body>
+    <p>
+       Latitude: <span id="lat"></span><br>
+       Longitude: <span id="long"></span><br>
+       velocity: <span id="vel"></span>
+    </p>
+    <div id="issMap"></div>
+
+    <script>
+        const mymap = L.map('issMap').setView([0, 0], 2);
+        const marker = L.marker([0, 0]).addTo(mymap);
+        const attribution = 
+        '&copy; <a href="https://www.openstreetmap.org/copyright">Openstreetmap</a> contributors';
+        const tileUrl =  'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+        const tiles = L.tileLayer(tileUrl,{attribution});
+        tiles.addTo(mymap) 
+
+        const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
+
+        let firstTime = true;
+        async function getISS(){
+            const response = await fetch(api_url);
+            const data = await response.json();
+           const {latitude, longitude, velocity} = data;
+          //L.marker([latitude, longitude]).addTo(mymap); 
+
+          marker.setLatLng([latitude,longitude ]);
+          if(firstTime){
+          mymap.setView([latitude,longitude], 2);
+          firstTime = false;
+
+
+          }
+
+           document.getElementById('lat').textContent = latitude.toFixed(2);
+           document.getElementById('long').textContent = longitude.toFixed(2);
+           document.getElementById('vel').textContent = velocity.toFixed(2);
+
+
+
+           console.log(latitude);
+           console.log(longitude);
+           console.log(velocity);
+
+        }
+
+        getISS();
+        setInterval(getISS, 1000);
+
+    </script>
+    
+</body>
+</html>
