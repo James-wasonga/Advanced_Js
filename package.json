@@ -1,0 +1,18 @@
+{
+  "name": "server_side",
+  "version": "1.0.0",
+  "description": "This is a test of how server works as far as data is concerned ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Server",
+    "check"
+  ],
+  "author": "James Wasonga",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

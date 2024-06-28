@@ -6,25 +6,51 @@
     <title>Document</title>
 </head>
 <body>
+    <h3>The Selfie App</h3>
+    <p>This is a selfie app </p>
+    <p >
+        latitude: <span id="lat"></span>&deg;<br>
+        longitude: <span id="long"></span>&deg;
+    </p>
+    <button onclick="getLocation()">geolocate</button>
+
 
     <script>
-      
-        async function getData(){
-            const response = await fetch('ZonAnn.csv');
-            const data =  await response.text();
-            console.log(data);
 
-            const table = data.split('/n').slice(1);
-            table.forEach(row => {
-                const column = row.split(',');
-                const year = column[0];
-                const temp = column[1];
-                console.log(year,temp);
-            })
+       function getLocation(){
+        if(navigator.geolocation){
+            console.log("The browser supports geolocation");
+           
+            navigator.geolocation.watchPosition(showPosition);
+            
+            const data = {lat,long}
+            const options = {
+                method:'POST',
+                headers: {
+                "Content-Type":"application/json", 
+             },
+                body: JSON.stringify(data),
 
+            };
+            fetch('/api',options).then(response => {
+                console.log(response);
+            });
+          
+        }else{
+           
+            console.log('The browser does not support geolocation');
         }
-        getData();
+    }
+
+        function showPosition(position){
+            //console.log(position.coords.latitude);
+          //  console.log(position.coords.longitude);
+            const lat = position.coords.latitude;
+            const long = position.coords.longitude;
+            document.getElementById('lat').textContent = lat;
+            document.getElementById('long').textContent = long;
+           
+        }
     </script>
-    
 </body>
 </html>
