@@ -17,13 +17,16 @@
                 const mood = document.createElement('div');
                 const geo = document.createElement('div');
                 const date = document.createElement('div');
-                root.append(mood, geo, date);
+                const image = document.createElement('div');
+                
+                root.append(mood, geo, date,image);
                 document.body.append(root);
 
                 mood.textContent = `mood: ${item.mood}`;
                 geo.textContent = `${item.lat}, ${item.long}`;
                 const dateString = new Data(item.timestamp).toLocaleString; 
                 date.textContent = dateString;
+                image.src = item.image64;
 
 
 

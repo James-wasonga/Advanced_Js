@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.js" 
+    integrity="sha512-on+Vjx6pkQ27deEPRDWBzaT7qKOG/tjLYq1Zm+1sL9/HL7jkVXOwEbZueZJFpZTQdguMIAp5D8Ewr9DLrvkmww==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Document</title>
 </head>
 <body>
@@ -16,14 +20,22 @@
 
 
     <script>
+        function setup(){
+            noCanvas();
+       // const video = createCapture(VIDEO);
+       // video.size(320,240);
+        }
+        setup()
 
        function getLocation(){
         if(navigator.geolocation){
             console.log("The browser supports geolocation");
            
             navigator.geolocation.watchPosition(showPosition);
+            video.loadPixcels();
+            const image64 = video.canvas.toDataURL();
             
-            const data = {lat,long}
+            const data = {lat,long,image64};
             const options = {
                 method:'POST',
                 headers: {
@@ -40,6 +52,7 @@
            
             console.log('The browser does not support geolocation');
         }
+        
     }
 
         function showPosition(position){
@@ -51,6 +64,8 @@
             document.getElementById('long').textContent = long;
            
         }
+
+      
     </script>
 </body>
 </html>
