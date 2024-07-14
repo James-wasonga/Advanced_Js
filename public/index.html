@@ -22,8 +22,8 @@
     <script>
         function setup(){
             noCanvas();
-       // const video = createCapture(VIDEO);
-       // video.size(320,240);
+       const video = createCapture(VIDEO);
+       video.size(320,240);
         }
         setup()
 
@@ -35,7 +35,8 @@
             video.loadPixcels();
             const image64 = video.canvas.toDataURL();
             
-            const data = {lat,long,image64};
+            
+            const data = {lat,long, image64};
             const options = {
                 method:'POST',
                 headers: {
@@ -45,7 +46,7 @@
 
             };
             fetch('/api',options).then(response => {
-                console.log(response);
+                
             });
           
         }else{
@@ -69,3 +70,4 @@
     </script>
 </body>
 </html>
+

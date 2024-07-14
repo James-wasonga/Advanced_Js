@@ -9,10 +9,10 @@ app.use(express.json({limit: '1mb'}));
 
 const database = new Datastore('database.db');
 database.loadDatabase();
-// database.insert({name: "James",age: 20});
+//database.insert({name: "James",age: 20});
 // database.insert({name: "Erick",age: 22});
 // database.insert({name: "Juma",age: 23});
-// database.insert({name: "Jack",age: 22});
+ database.insert({name: "Felix",age: 24});
 
 app.get('/api', (request,response) => {
     database.find({},(err,data) => {
@@ -34,3 +34,4 @@ app.post('/api', (request,response) => {
     database.insert(data);
     response.json(data);
 })
+
